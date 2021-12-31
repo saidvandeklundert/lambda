@@ -1,0 +1,12 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "klundert-lambda-sam"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-ezr5g6jw5nlo"
+s3_prefix = "klundert-lambda-sam"
+region = "eu-central-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+disable_rollback = true
+image_repositories = []

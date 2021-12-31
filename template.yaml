@@ -1,0 +1,32 @@
+# SAM FILE
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: Building a serverless function
+Resources:
+  helloworldpython3:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      # filename.function_name:
+      Handler: handler.hello
+      Runtime: python3.9
+      CodeUri: src/
+      Description: The actual function
+      MemorySize: 128
+      Timeout: 3
+      Environment:
+        Variables:
+          ENV_VAR_EXAMPLE_1: ENV_VAR_EXAMPLE_VALUE_1
+          ENV_VAR_EXAMPLE_2: ENV_VAR_EXAMPLE_VALUE_2        
+      Policies:
+      - Statement:
+        - Sid: Lambda
+          Effect: Allow
+          Action:
+          - "lambda:*"
+          Resource: '*'
+        - Sid: SSMGetParameterPolicy
+          Effect: Allow
+          Action:          
+          - "ssm:GetParameter"
+          Resource: "*"
+
