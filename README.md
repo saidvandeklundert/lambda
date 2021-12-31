@@ -1,6 +1,9 @@
 # Serverless in AWS
 
-## Intro
+Some things I recently learned about AWS Lambda while studying for the AWS certified developer associate exam.
+
+First an introduction about the AWS Lambda. After that, a toy sample to play with that contains most of the things I was wondering about when starting out with Lambda. These things include securely retrieving secrets, using environment variables, installing additional libraries and more.
+## Lambda introduction
 
 Serverless: you do not have to manage the servers (of )
 Number of services that can be leveraged in a 'serverless' fashion:
@@ -36,6 +39,15 @@ Can be done using:
 - SAM
 - Serveless framework
 
+
+## Where is the Lambda running?
+
+```
+Lambda will create its execution environments on a fleet of Amazon EC2 instances called AWS Lambda Workers. Workers are bare metalEC2 Nitro instances which are launched and managed by Lambda in a separate isolated AWS account which is not visible to customers. Workers have one or more hardware-virtualized Micro Virtual Machines (MVM) created by Firecracker. Firecracker is an open-source Virtual Machine Monitor (VMM) that uses Linux’s Kernel-based Virtual Machine (KVM) to create and manage MVMs. It is purpose-built for creating and managing secure, multi-tenant container and function-based services that provide serverless operational models. For more information about Firecracker's security model, see the Firecracker project website.
+
+As a part of the shared responsibility model, Lambda is responsible for maintaining the security configuration, controls, and patching level of the Workers. The Lambda team uses Amazon Inspector to discover known potential security issues, as well as other custom security issue notification mechanisms and pre-disclosure lists, so that customers don’t need to manage the underlying security posture of their execution environment.
+```
+![Lambda env](img\lambda_whitepaper_lambda_environment.png "Lambda environment")
 
 ## Logging from your Lambda
 
@@ -90,6 +102,7 @@ sam build --config-file samconfig.toml
 
 sam package
 sam deploy
+sam deploy --confirm-changeset
 
 # alternatively, use guided. This will ask for confirmation:
 sam deploy --guided
