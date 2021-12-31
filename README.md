@@ -42,11 +42,9 @@ Can be done using:
 
 ## Where is the Lambda running?
 
-```
-Lambda will create its execution environments on a fleet of Amazon EC2 instances called AWS Lambda Workers. Workers are bare metalEC2 Nitro instances which are launched and managed by Lambda in a separate isolated AWS account which is not visible to customers. Workers have one or more hardware-virtualized Micro Virtual Machines (MVM) created by Firecracker. Firecracker is an open-source Virtual Machine Monitor (VMM) that uses Linux’s Kernel-based Virtual Machine (KVM) to create and manage MVMs. It is purpose-built for creating and managing secure, multi-tenant container and function-based services that provide serverless operational models. For more information about Firecracker's security model, see the Firecracker project website.
+There is a fleet of Amazon EC2 instances named AWS Lambda workers. These workers are bare metalEC2 Nitro instances that are managed by Amazon. Workers have one or more hardware-virtualized Micro Virtual Machines (MVM) created by Firecracker. This information can be found [here](https://docs.aws.amazon.com/whitepapers/latest/security-overview-aws-lambda/lambda-executions.html).
 
-As a part of the shared responsibility model, Lambda is responsible for maintaining the security configuration, controls, and patching level of the Workers. The Lambda team uses Amazon Inspector to discover known potential security issues, as well as other custom security issue notification mechanisms and pre-disclosure lists, so that customers don’t need to manage the underlying security posture of their execution environment.
-```
+
 ![Lambda env](img\lambda_whitepaper_lambda_environment.png "Lambda environment")
 
 ## Logging from your Lambda
