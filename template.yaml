@@ -19,10 +19,10 @@ Resources:
           ENV_VAR_EXAMPLE_2: ENV_VAR_EXAMPLE_VALUE_2        
       Policies:
       - Statement:
-        - Sid: Lambda
+        - Sid: DynamoDB
           Effect: Allow
           Action:
-          - "lambda:*"
+          - "dynamodb:Scan"
           Resource: '*'
         - Sid: SSMGetParameterPolicy
           Effect: Allow

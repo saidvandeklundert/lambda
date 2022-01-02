@@ -1,8 +1,8 @@
 {
   "service": {
-    "service": "sls-hello-world",
+    "service": "serverless-deployment",
     "serviceObject": {
-      "name": "sls-hello-world"
+      "name": "serverless-deployment"
     },
     "provider": {
       "name": "aws",
@@ -107,10 +107,10 @@
               }
             }
           },
-          "HelloLogGroup": {
+          "ServerlessLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/sls-hello-world-dev-hello"
+              "LogGroupName": "/aws/lambda/serverless-deployment-dev-serverless"
             }
           },
           "IamRoleLambdaExecution": {
@@ -138,7 +138,7 @@
                     "Fn::Join": [
                       "-",
                       [
-                        "sls-hello-world",
+                        "serverless-deployment",
                         "dev",
                         "lambda"
                       ]
@@ -155,7 +155,7 @@
                         ],
                         "Resource": [
                           {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/sls-hello-world-dev*:*"
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/serverless-deployment-dev*:*"
                           }
                         ]
                       },
@@ -166,7 +166,7 @@
                         ],
                         "Resource": [
                           {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/sls-hello-world-dev*:*:*"
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/serverless-deployment-dev*:*:*"
                           }
                         ]
                       },
@@ -182,7 +182,7 @@
                 "Fn::Join": [
                   "-",
                   [
-                    "sls-hello-world",
+                    "serverless-deployment",
                     "dev",
                     {
                       "Ref": "AWS::Region"
@@ -193,18 +193,18 @@
               }
             }
           },
-          "HelloLambdaFunction": {
+          "ServerlessLambdaFunction": {
             "Type": "AWS::Lambda::Function",
             "Properties": {
               "Code": {
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/sls-hello-world/dev/1640930122185-2021-12-31T05:55:22.185Z/sls-hello-world.zip"
+                "S3Key": "serverless/serverless-deployment/dev/1641114330612-2022-01-02T09:05:30.612Z/serverless-deployment.zip"
               },
-              "Handler": "handler.hello",
+              "Handler": "handler.serverless",
               "Runtime": "python3.9",
-              "FunctionName": "sls-hello-world-dev-hello",
+              "FunctionName": "serverless-deployment-dev-serverless",
               "MemorySize": 256,
               "Timeout": 6,
               "Environment": {
@@ -221,17 +221,17 @@
               }
             },
             "DependsOn": [
-              "HelloLogGroup"
+              "ServerlessLogGroup"
             ]
           },
-          "HelloLambdaVersionxANtTtSPpXi39Vw3AADLx0aZwb8W2EacPiTwwa1kyfc": {
+          "ServerlessLambdaVersionVBQ2GOlIgtXBTipNl5P47MTC5rSEdOvyRqOtX9mShQ": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
-                "Ref": "HelloLambdaFunction"
+                "Ref": "ServerlessLambdaFunction"
               },
-              "CodeSha256": "m2hoX5tgJKA/y4m12k2SN6zO9F4a2NB59wirv9Fb90o="
+              "CodeSha256": "MKDWWYyqgwJtJqaP2PbOU5LJa+tj7bWSsyLiG5MWl7k="
             }
           }
         },
@@ -241,16 +241,16 @@
               "Ref": "ServerlessDeploymentBucket"
             },
             "Export": {
-              "Name": "sls-sls-hello-world-dev-ServerlessDeploymentBucketName"
+              "Name": "sls-serverless-deployment-dev-ServerlessDeploymentBucketName"
             }
           },
-          "HelloLambdaFunctionQualifiedArn": {
+          "ServerlessLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "HelloLambdaVersionxANtTtSPpXi39Vw3AADLx0aZwb8W2EacPiTwwa1kyfc"
+              "Ref": "ServerlessLambdaVersionVBQ2GOlIgtXBTipNl5P47MTC5rSEdOvyRqOtX9mShQ"
             },
             "Export": {
-              "Name": "sls-sls-hello-world-dev-HelloLambdaFunctionQualifiedArn"
+              "Name": "sls-serverless-deployment-dev-ServerlessLambdaFunctionQualifiedArn"
             }
           }
         }
@@ -341,17 +341,17 @@
     },
     "pluginsData": {},
     "functions": {
-      "hello": {
-        "handler": "handler.hello",
+      "serverless": {
+        "handler": "handler.serverless",
         "memorySize": 256,
         "timeout": 6,
         "events": [],
-        "name": "sls-hello-world-dev-hello",
+        "name": "serverless-deployment-dev-serverless",
         "package": {},
         "memory": 256,
         "runtime": "python3.9",
         "vpc": {},
-        "versionLogicalId": "HelloLambdaVersionxANtTtSPpXi39Vw3AADLx0aZwb8W2EacPiTwwa1kyfc"
+        "versionLogicalId": "ServerlessLambdaVersionVBQ2GOlIgtXBTipNl5P47MTC5rSEdOvyRqOtX9mShQ"
       }
     },
     "configValidationMode": "warn",
@@ -370,10 +370,10 @@
     },
     "layers": {},
     "isDashboardMonitoringPreconfigured": false,
-    "artifact": "C:\\dev-container\\lambda\\.serverless\\sls-hello-world.zip"
+    "artifact": "C:\\dev-container\\lambda\\.serverless\\serverless-deployment.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/sls-hello-world/dev/1640930122185-2021-12-31T05:55:22.185Z",
-    "artifact": "sls-hello-world.zip"
+    "artifactDirectoryName": "serverless/serverless-deployment/dev/1641114330612-2022-01-02T09:05:30.612Z",
+    "artifact": "serverless-deployment.zip"
   }
 }

@@ -5,7 +5,7 @@
 #
 # Happy Coding!
 
-service: sls-hello-world
+service: serverless-deployment
 # app and org for use with dashboard.serverless.com
 #app: your-app-name
 #org: your-org-name
@@ -53,8 +53,8 @@ provider:
 #    - include-me-dir/**
 
 functions:
-  hello:
-    handler: handler.hello
+  serverless:
+    handler: handler.serverless
     # overwriting defaults here:
     memorySize: 256
     timeout: 6    

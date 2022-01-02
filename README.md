@@ -1,59 +1,8 @@
-# Serverless in AWS
+## What is this?
 
-Some things I recently learned about AWS Lambda while studying for the AWS certified developer associate exam.
+/src contains source code that can be deployed as a Lambda using SAM.
 
-First an introduction about the AWS Lambda. After that, a toy sample to play with that contains most of the things I was wondering about when starting out with Lambda. These things include securely retrieving secrets, using environment variables, installing additional libraries and more.
-## Lambda introduction
-
-Serverless: you do not have to manage the servers (of )
-Number of services that can be leveraged in a 'serverless' fashion:
-- Lambda
-- API Gateway
-- S3
-- SNS
-- SQS
-- DynamoDB
-- Cognito
-- Step functions
-- CloudWatch Events / Logs
-- Kinesis
-
-
-Lambda can act as the nexus of serverless, tying everything together.
-
-There are 'native' integrations between AWS services and Lambda. With native, I mean you can combine the features of certain products together with Lambda. 
-
-In addition to this, many other integrations can be done through code. Either the SDK or, if you are using Python, boto3.
-
-## Lamdba
-
-Functions that can run on demand and no servers to tend to.
-
-Functions are executed inside a container.
-
-## Deploying Lambda
-
-Can be done using:
-- AWS console
-- CloudFormation
-- SAM
-- Serveless framework
-
-
-## Where is the Lambda running?
-
-There is a fleet of Amazon EC2 instances named AWS Lambda workers. These workers are bare metalEC2 Nitro instances that are managed by Amazon. Workers have one or more hardware-virtualized Micro Virtual Machines (MVM) created by Firecracker. This information can be found [here](https://docs.aws.amazon.com/whitepapers/latest/security-overview-aws-lambda/lambda-executions.html).
-
-
-![Lambda env](img\lambda_whitepaper_lambda_environment.png "Lambda environment")
-
-## Logging from your Lambda
-
-Your Lambda comes with a CloudWatch Logs group out of the box. Everything that is written to `stdout` or `stderr` will be sent to CloudWatch.
-
-Log groups: arbitrary name, usually representing an application
-Log stream: instances within application / log file / container
-
+The /serverless* dirs contain source code that can be deployed as Lambda using serverless.
 
 
 # Serverless lazydog:
@@ -72,19 +21,22 @@ Using serverless:
 
 ```
 # create new project:
-sls create --template aws-python3 --path sls_hello_world
+sls create --template aws-python3 --path serverless_deployment
 
-# Do some work on the code, and then deploy it (will read requirements.txt):
+# Deploy the code (from the source directory):
 sls deploy --verbose
+
+# to enable the installation from requirements.txt
+serverless plugin install -n serverless-python-requirements
 
 # deploy new function version:
 sls deploy function -f hello
 
 # call func from CLI:
-sls invoke -f hello -l
+sls invoke -f serverless -l
 
 # tailing the log:
-sls logs -f hello -t
+sls logs -f serverless -t
 
 # remove the function (from the source dir):
 sls remove
@@ -100,10 +52,7 @@ sam build --config-file samconfig.toml
 
 sam package
 sam deploy
-sam deploy --confirm-changeset
 
-# alternatively, use guided. This will ask for confirmation:
-sam deploy --guided
 
 # alternatively:
 aws cloudformation deploy
@@ -111,8 +60,6 @@ aws cloudformation deploy
 # invoke the lambda using AWS cli:
 aws lambda invoke --function-name klundert-lambda-sam-helloworldpython3-6BxLjAQrMYOi output.txt
 
-# cleaning up:
-klundert-lambda-sam
 ```
 
 Deployment log:
@@ -182,30 +129,8 @@ UPDATE_COMPLETE                      AWS::CloudFormation::Stack           klunde
 
 Successfully created/updated stack - klundert-lambda-sam in eu-central-1
 ```
-# Links
 
-[serverless examples](https://github.com/serverless/examples)
-[serverless community examples](https://github.com/serverless/examples#community-examples)
-[Lambda pricing](https://aws.amazon.com/lambda/pricing/)
-[Lambda logging](https://docs.aws.amazon.com/lambda/latest/dg/python-logging.html)
-
-# Handy
-
-
-
-Create a user called serverless-admin with required privileges. Only needs access-key and secret access-key.
-
-
-
-Note for windows:
-https://stackoverflow.com/questions/43302843/serverless-framework-sls-conflicts-with-powershell-sls-select-string
-
-Create a powershell profile and remove the default (conflicting) sls alias:
-```
-notepad $profile
-remove-item alias:sls
-```
-
+# Serverless
 
 Install nodejs, then:
 ```
@@ -269,4 +194,7 @@ For minor updates to the function after the initial deployment, you can use:
 sls deploy function -f hello
 ```
 
+# Links
 
+[serverless examples](https://github.com/serverless/examples)
+[serverless community examples](https://github.com/serverless/examples#community-examples)

@@ -1,0 +1,38 @@
+# For full config options, check the docs:
+#    docs.serverless.com
+
+service: serverless-deployment
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: python3.9
+  lambdaHashingVersion: 20201221
+  profile: serverless-admin
+  region: eu-central-1
+  memorySize: 128
+  timeout: 3
+
+# you can add statements to the Lambda function's IAM Role here
+#  iam:
+#    role:
+#      statements:
+#        - Effect: "Allow"
+#          Action:
+#            - "s3:ListBucket"
+#          Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
+#        - Effect: "Allow"
+#          Action:
+#            - "s3:PutObject"
+#          Resource:
+#            Fn::Join:
+#              - ""
+#              - - "arn:aws:s3:::"
+#                - "Ref" : "ServerlessDeploymentBucket"
+#                - "/*"
+
+functions:
+  serverless:
+    handler: handler.serverless
+
